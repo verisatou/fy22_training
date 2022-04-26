@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <meta charset="utf-8" />
+    <title>ログイン</title>
+</head>
+ 
+<body>
+    <h1>ログイン</h1>
+    <form method="post" align=center>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- <center><button type="submit" class="btn btn-success">ログイン</button></center> -->
+        <center><input type="submit" value="ログイン" class="button_login"></center>
+    </form>
+</body>
+
+
+<style>
+    body {
+        background-color: #c4e6b8;
+        color: #333333;
+    }
+
+    h1{
+        text-align: center;
+        padding-top: 50px;
+        padding-bottom: 30px;
+    }
+
+    .button_login{
+        width:100px;
+        height:25px;
+        margin: 6px;
+        align: center;
+        text-align: center;
+        line-height:25px;
+        display:block;
+        text-decoration: none;
+        background: #77b359;
+        text-align:center;
+        border:1px solid #FFFFFF;
+        color:#FFFFFF;
+        font-size:15px;
+        font-family: sans-serif;
+        border-radius:8px;
+        -webkit-border-radius:8px;
+        -moz-border-radius:8px;
+        box-shadow:0px 0px 0px 4px #659945 ;
+        transition: all 0.5s ease;
+    }
+
+    .button_login:hover{
+        background:#A8FF73;
+        color:#999999;
+        box-shadow:0px 0px 0px 4px #8cd460 ;
+    }
+
+</style>
+ 
+</html>

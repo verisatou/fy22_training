@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if object %}
+<h1 align="center">課題点メモ編集</h1>
+{% else %}
+<h1 align="center">課題点メモ作成</h1>
+{% endif %}
+
+<script type="text/javascript">
+    function ShowLength(str) {
+        document.getElementById("inputlength").innerHTML ="文字数　" + str.length + "/500";
+    }
+    window.onload = function() {
+        var count = document.getElementById('id_solution');
+        document.getElementById("inputlength").innerHTML ="文字数　" + count.textContent.length + "/500";
+    }
+</script>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form_group_memo">
+
+        <label for="id_problem" class="create_label">{{form.problem.label}}</label>
+        <input type="text" class="create_problem" id="id_problem" name="problem" value="{{object.problem}}" >
+        <br>
+        <label for="id_solution" class="create_label">{{form.solution.label}}</label>
+        <textarea class="create_solution" id="id_solution" name="solution" rows="5" onkeyup="ShowLength(value);" >{{object.solution}}</textarea>
+        <p id="inputlength" class="textCount">文字数　0/500</p>
+        <button type="submit" class="btn btn-success">作成</button>
+    </div>
+   
+</form>
+
+<style>
+    .form_group_memo{
+        text-align: center;
+    }
+
+    .create_problem,
+    .create_solution{
+        vertical-align:middle;
+        width: 50%;
+        line-height:30px;
+        margin:10px;    
+    }
+
+    .textCount{
+        vertical-align: right;
+        margin-left: 45%;
+    }
+
+</style>
+
+{%endblock%}

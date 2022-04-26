@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if object %}
+<h1>返信の編集</h1>
+{% else %}
+<h1>返信の作成</h1>
+{% endif %}
+<div class="container">
+<table border = '1' >
+    <tbody>
+        <form method="post">
+        {% csrf_token %}
+        {{ form }} 
+        <button type="submit">返信する</button>
+        </form>
+    </tbody>
+</table>
+<!-- <a href="{% url 'feedback:private_list' %}" class="button">個人宛フィードバック一覧に戻る</a>
+<a href="{% url 'feedback:list' %}" class="button">全体宛フィードバック一覧に戻る</a> -->
+</div>
+{%endblock%}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h1><center>ようこそ！{{ user.first_name }}{{ user.last_name }}さんのマイページ</center></h1>
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="mypage_btn1">
+        <a href="{% url 'feedback:private_list' %}">{{ user.first_name }}{{ user.last_name }}さん宛フィードバック</a>　<!--個人宛フィードバック一覧へ飛ぶ-->
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="mypage_btn">
+        <a href="{% url 'feedback:create' %}" class='btn'>フィードバックを投稿</a>　<!--フィードバック投稿ページへ飛ぶ-->
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="mypage_btn">
+        <a href="{% url 'memo:list' %}" class='btn'>課題点メモ</a>　<!--課題点メモ一覧へ飛ぶ-->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="mypage_btn">
+        <a href="{% url 'feedback:list' %}" class='btn'>全体宛フィードバック</a>　<!--全体宛フィードバック一覧へ飛ぶ(memo)-->
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="mypage_btn">
+        <a href="{% url 'feedback:history' %}" class='btn'>投稿履歴</a>　<!--フィードバック投稿ページへ飛ぶ-->
+      </div>
+    </div> 
+  </div>
+
+  <p><br>同期の発表や普段の研修を受けている際の姿勢などで、良いところ・直したほうがいいところをお互いにフィードバックしましょう。<br>
+    <br>
+    <b>〇個人宛フィードバック</b><br>
+    　個人に対して送られてくるフィードバックを閲覧できます。<br>
+    <br>
+    <b>〇全体宛フィードバック</b><br>
+    　同期全員に対して送られてくるフィードバックを閲覧できます。<br>
+    <br>
+    <b>〇フィードバックを投稿</b><br>
+    　個人／全体に対してフィードバックを送ることができます。<br>
+    　投稿する際に、匿名・非匿名を選択することができます。<br>
+    　　<b><font color="#ff0000">＊フィードバックを投稿する際の注意＊</font></b><br>
+    　　　<u><font color="#ff0000">相手を攻撃するような否定的な言葉</font></u>を使った投稿はしないでください。<br>
+    <br>
+    <b>〇課題点メモ</b><br>
+    　もらったフィードバックから、自分の課題点をメモして閲覧することができます。
+  </p>
+</div>
+
+<!-- <style>
+  body {
+    background-color: #c4e6b8;
+    color: #4d4d4d;
+  } 
+</style> -->
+{%endblock%}

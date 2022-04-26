@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="content-type" charset="utf-8">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+        <!-- Bootstrap Javascript(jQuery含む) -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+           
+        <title>Feedback</title> 
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #77b359;">
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#Navber" aria-controls="Navber" aria-expanded="false" aria-label="ナビゲーションの切替">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="Navber">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  フィードバック閲覧
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #77b359;">
+                  <a class="dropdown-item" href="{% url 'feedback:private_list' %}">個人宛</a>
+                  <a class="dropdown-item" href="{% url 'feedback:list' %}">全体宛</a>
+                  <a class="dropdown-item" href="{% url 'feedback:history' %}">投稿履歴</a>
+                </div>
+            </li>
+            {% if request.path == "/feedback/create/" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+              <a class="nav-link" href="{% url 'feedback:create' %}">フィードバック投稿</a>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  課題点メモ
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #77b359;">
+                  <a class="dropdown-item" href="{% url 'memo:list' %}">一覧</a>
+                  <a class="dropdown-item" href="{% url 'memo:create' %}">作成</a>
+                </div>
+              </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+            {% if request.path == "/feedback/mypage/" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+                <a class="nav-link" href="{% url 'feedback:mypage' %}">マイページ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">ログアウト</a>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <br>
+    <br>
+</body>
+</html>

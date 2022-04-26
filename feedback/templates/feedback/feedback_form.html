@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if object %}
+<div class="container">
+<div class="text-center"> 
+<h1>投稿の編集</h1>
+{% else %}
+<div class="container">
+<div class="text-center"> 
+<h1>フィードバックを投稿</h1>
+{% endif %}
+
+<script type="text/javascript">
+    function ShowLength(str) {
+        document.getElementById("inputlength").innerHTML ="文字数　" + str.length + "/500";
+    }
+
+    window.onload = function() {
+        var count = document.getElementById('id_content');
+        document.getElementById("inputlength").innerHTML ="文字数　" + count.textContent.length + "/500";
+    }
+</script>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form_group_feedback">
+        
+        <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+        <label for="id_userid" class="create_label">{{form.user_id.label}}</label>
+        <select name="user_id" size="1">
+            <option disabled selected>----</option>
+            {% for user_id in user %}
+                {% if user_id == object.user_id %}
+                    <option value={{user_id.id}} selected>{{user_id}}</option>
+                {% else %}
+                    <option value={{user_id.id}}>{{user_id}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <span>　　</span>
+        <label for="id_category" class="create_label">{{form.category.label}}</label>
+        <select name="category" size="1">
+            <option disabled selected>----</option>
+            {% for choices in model.CHOICES %}
+                {% if choices.0 == object.category %}
+                    <option value={{choices.0}} selected>{{choices.1}}</option>
+                {% else %}
+                    <option value={{choices.0}}>{{choices.1}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+        <div class="col-lg-2"></div>
+        </div>
+        
+         <label for="id_title" class="create_label">{{form.title.label}}</label>
+        <input type="text" class="create_title" id="id_title" name="title" value={{object.title}}>
+        <br>
+        
+        <label for="id_content" class="create_label">{{form.content.label}}</label>
+        <textarea class="create_content" id="id_content" name="content" rows="3" onkeyup="ShowLength(value);">{{object.content}}</textarea>
+        <p id="inputlength" class="textCount">文字数　0/500</p>
+
+        <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-3">
+        
+        <label for="id_anonymous" class="create_label">{{form.anonymous.label}}</label>
+        {% if object.anonymous == True %}
+            <input name="anonymous" type="hidden" value="off",class="text-left"  id=id_anonymous/>
+            <input name="anonymous" type="checkbox" value="on",class="text-left" id=id_anonymous checked/>
+        {% else %}
+            <input name="anonymous" type="hidden" value="off",class="text-left"  id=id_anonymous/>
+            <input name="anonymous" type="checkbox" value="on",class="text-left" id=id_anonymous />
+        {% endif %}
+        </div>
+        </div>
+        {% if object %}
+            <button type="submit" class="btn btn-success">修正</button>
+        {% else %}
+            <button type="submit" class="btn btn-success">投稿</button> 
+        {% endif %}
+    </div>
+</form>
+
+</div>
+</div>
+
+<style>
+
+    /* .form_group_feedback{
+        text-align: center;
+    } */
+
+    .create_content,
+    .create_title,
+    .create_anonymous
+    {
+        text-align: left;
+        vertical-align: middle;
+        width: 60%;
+        /* line-height:30px; */
+        margin:5px; 
+    }
+
+  
+    
+
+    .category_select,
+    .userid_select{
+        /* vertical-align: middle; */
+        width: 20%;
+        line-height:30px;
+        /* margin:10px;  */
+        /* float: left; */
+    }
+
+    .textCount{
+        vertical-align: right;
+        margin-left: 45%;
+    }
+
+   
+</style>
+
+{%endblock%}

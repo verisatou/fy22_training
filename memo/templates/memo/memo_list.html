@@ -1,0 +1,141 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 align="center">課題点メモの一覧</h1>
+
+<hr/>
+
+<table border="0" align="center" class ="status_false_tabel">
+  <tbody >
+    {% for item in object_list %}
+      {% if item.status == '未達成' %}
+      <tr>
+        <td class="memo_false_status">
+          <form id="submit_form" method="post" >
+            {% csrf_token %}
+            <select id="submit_select" name="{{item.id}}" onchange="submit(this.form)" class="memo_false_select">
+              <option value="未達成">未達成</option>
+              <option value="達成">達成</option>
+            </select>
+          </form>
+        </td>
+          <td class="list_titel">{{ item.problem | truncatechars:20}}</td>
+          <td class="list_created">{{ item.created_at }}</td>
+          <td class="list_detail"><a  href="{% url 'memo:detail' pk=item.id %}" class="button_None">詳細を見る</a></td>
+      </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+<hr/>
+
+<table border="0" align="center" class ="status_true_tabel">
+  <tbody >
+    {% for item in object_list %}
+      {% if item.status == '達成' %}
+      <tr>
+          <td class="memo_true_status">
+          <form id="submit_form" method="post" >
+            {% csrf_token %}
+            <select  id="submit_select" name="{{item.id}}" onchange="submit(this.form)" class="memo_true_select">
+              <option value="達成">達成</option>
+              <option value="未達成">未達成</option>
+            </select>
+          </form>
+          </td>
+          <td class="list_titel">{{ item.problem | truncatechars:20}}</td>
+          <td class="list_created">{{ item.created_at }}</td>
+          <td class="list_detail"><a  href="{% url 'memo:detail' pk=item.id %}" class="button_None">詳細を見る</a></td>
+      </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+<style>
+
+  .status_false_tabel,
+  .status_true_tabel{
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .status_false_tabel th,
+  .status_false_tabel td,
+  .status_true_tabel th,
+  .status_true_tabel td{
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .list_titel {
+    border-bottom: 1px solid black;
+    width: 400px;
+    text-align: left;
+  }
+
+  .list_created{
+    border-bottom: 1px solid black;
+    width: 200px;
+    padding-right: 30px;
+    text-align: right;
+  }
+
+  .list_detail{
+    border-bottom: 1px solid black;
+    text-align: right;
+    padding-right: 20px;
+  }
+
+  .memo_false_status,
+  .memo_true_status{
+    padding-right: 20px;
+  }
+
+  .memo_false_select{ /*課題点メモの達成ステータス(赤)*/
+    width:71px;
+    height:25px;
+    text-align: center;
+    line-height:40px;
+    display:block;
+    text-decoration: none;
+    background: #ffb499;
+    text-align:center;
+    border:1px solid #FFFFFF;
+    color:#333333;
+    font: size 15px;
+    font-family: sans-serif;
+    border-radius:8px;
+    -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    box-shadow:0px 0px 0px 4px #ff8f66;
+    transition: all 0.5s ease;
+}
+option{
+    background:#FFFFFF;
+}
+
+.memo_true_select{ /*課題点メモの達成ステータス(青)*/
+    width:71px;
+    height:25px;
+    text-align: center;
+    line-height:40px;
+    display:block;
+    text-decoration: none;
+    background: #99eeff;
+    text-align:center;
+    border:1px solid #FFFFFF;
+    color:#333333;
+    font: size 15px;
+    font-family: sans-serif;
+    border-radius:8px;
+    -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    box-shadow:0px 0px 0px 4px #66e6ff;
+    transition: all 0.5s ease;
+}
+
+</style>
+{%endblock%}

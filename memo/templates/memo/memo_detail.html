@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<div class="text-center"> 
+<h1>課題点メモの詳細</h1>
+<div class="row">
+    <div class="col-xs-9 col-ms-9 col-md-9 col-lg-9"></div>
+    <div class="col-xs-3 col-ms-3 col-md-3 col-lg-3"><div class="detail_updatelink"><a href="{% url 'memo:update' pk=object.id %}">メモを編集</a></div></div>
+</div>
+<br>
+<div class="table-responsive">
+    <table align="center" class="detail_box">
+        <tbody>
+    <!-- <tr>
+        <td>{{ object.status }}</td>
+    </tr> -->
+    <tr>
+        <td align="left" class="detail_title">{{ object.problem }}</td>
+    </tr>
+    <tr>
+        <td align="left" class="detail_thin">{{object.created_at}}</td>
+    </tr>
+    <tr>
+        <td align="left">{{ object.solution }}</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+<br>
+<div class="row">
+    <div class="col-xs-2 col-ms-2 col-md-2 col-lg-2"></div>
+    <div class="col-xs-10 col-ms-10 col-md-10 col-lg-10"><div class="detail_listlink"><a href="{% url 'memo:list' %}">一覧に戻る</a></div></div>
+</div>
+</div>
+{%endblock%}

@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="content-type" charset="utf-8">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+        <!-- Bootstrap Javascript(jQuery含む) -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+           
+        <title>Feedback</title> 
+</head>
+<body>
+    {% if object %}
+    <h1 align="center">課題点メモ編集</h1>
+    {% else %}
+    <h1 align="center">課題点メモ作成</h1>
+    {% endif %}
+    
+    <script type="text/javascript">
+        function ShowLength(str) {
+            document.getElementById("inputlength").innerHTML ="文字数　" + str.length + "/500";
+        }
+        window.onload = function() {
+            var count = document.getElementById('id_solution');
+            document.getElementById("inputlength").innerHTML ="文字数　" + count.textContent.length + "/500";
+        }
+    </script>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="form_group_memo">
+    
+            <label for="id_problem" class="create_label">{{form.problem.label}}</label>
+            <input type="text" class="create_problem" id="id_problem" name="problem" value="{{object.problem}}" >
+            <br>
+            <label for="id_solution" class="create_label">{{form.solution.label}}</label>
+            <textarea class="create_solution" id="id_solution" name="solution" rows="5" onkeyup="ShowLength(value);" >{{object.solution}}</textarea>
+            <p id="inputlength" class="textCount">文字数　0/500</p>
+            <button type="submit" class="btn btn-success">作成</button>
+        </div>
+       
+    </form>
+    
+    <style>
+        .form_group_memo{
+            text-align: center;
+        }
+    
+        .create_problem,
+        .create_solution{
+            vertical-align:middle;
+            width: 50%;
+            line-height:30px;
+            margin:10px;    
+        }
+    
+        .textCount{
+            vertical-align: right;
+            margin-left: 45%;
+        }
+    
+    </style>
+    
+<br>
+<br>
+</body>
+</html>

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<div class="text-center"> 
+{% if feedback_count == 0 %}
+<h1>データがありません</h1>
+{% else %}
+<h1>{{ user.first_name }}{{ user.last_name }}さん宛フィードバックの詳細</h1>
+{% for object in feedback %}
+<!--フィードバックの表示-->
+<div class="table-responsive">
+<table align="center" class="detail_box">
+    <tbody>
+    <!-- <span class="detail_box"> -->
+    <tr>
+        <!-- 件名-->
+        <td align="left"><span  class="detail_title">{{ object.title }}</span>　<span  class="detail_category">{{ object.get_category_display}}</span></td>
+    </tr>
+    <tr>
+        <!-- 名前 日時-->
+        {% if object.anonymous %}
+        <td align="left"><span class="detail_thin">送信者：匿名　{{ object.created_at }}</span></td>
+        {% else %}
+        <td align="left"><span class="detail_thin">送信者：{{ object.sender }}　{{ object.created_at }}</span></td>
+        {% endif %}
+    </tr>
+    <tr>
+        <!-- 内容-->
+        <td align="left" class="detail_text">{{ object.content }}</td>
+    </tr>
+</tbody>
+</table>
+</div>
+    <!-- </span> -->
+<!--返信の表示-->
+{% for item in reply %}
+<!-- <span class="detail_box"> -->
+<div class="table-responsive">
+<table align="center" class="detail_box" >
+    <tbody>
+    <tr>
+        {% if item.replyer != user.username and object.anonymous%}
+        <td align="left"><span class="detail_thin">送信者：匿名　{{ item.created }}</span></td>
+        {% else %}
+        <td align="left"><span class="detail_thin">送信者：{{item.replyer}}　{{ item.created }}</span></td>
+        {% endif %}
+    </tr>
+    <tr>
+        <td align="left" class="detail_text">{{ item.reply_content }}</td>
+    </tr>
+<!-- </span> -->
+</tbody>
+</table>
+</div>
+{% endfor %}
+{% endfor %}
+
+    <!-- <tr> -->
+    <!--返信フォーム-->
+    
+    <form name ="form" class="ui form" action="" method="POST">
+        {% csrf_token %}
+        <div class="table-responsive">
+        {{form.reply_content}}
+        </div>
+        <div class="row">
+            <div class="col-xs-10 col-ms-10 col-md-10 col-lg-8"></div>
+            <div class="col-xs-2 col-ms-2 col-md-2 col-lg-4"><div class="detail_btn"><button type="submit" class="btn btn-success">返信</button></div></div>
+        </div>
+    </form>
+    <!-- </tr> -->
+<!-- </table> -->
+
+<script>
+    document.form.reply_content.placeholder = "返信する";
+    document.form.reply_content.rows = "3";
+    document.form.reply_content.cols = "111";
+</script>
+<!--返信フォーム-->
+{% endif %}
+
+{% for object in feedback %}
+<div class="detail_memolink" align="center">
+<a href="{% url 'memo:subcreate' %}"  target="window_name" onClick="disp('{% url 'memo:subcreate' %}')">課題点メモを作成する</a>
+</div>
+{% endfor %}
+</div>
+<br>
+<div class="row">
+    <div class="col-xs-2 col-ms-2 col-md-2 col-lg-2"></div>
+    <div class="col-xs-10 col-ms-10 col-md-10 col-lg-10"><div class="detail_listlink"><a href="{% url 'feedback:private_list' %}">一覧に戻る</a></div></div>
+</div>
+
+</div>
+
+<!-- 課題点メモサブwindow -->
+<script type="text/javascript">
+    function disp(url){
+        window.open(url, "window_name", "width=600,height=500,left=700,scrollbars=yes");
+    }
+</script>
+<!-- 課題点メモサブwindow 閉じるためのやつ -->
+<!-- <p class="BackLink"><a href="#" onClick="window.close(); return false;">ウィンドウを閉じる</a></p> -->
+{%endblock%}

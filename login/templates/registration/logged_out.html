@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <meta charset="utf-8" />
+    <title>ログアウト</title>
+</head>
+ 
+<body>
+    <h1>ログアウト</h1>
+    <p align=center>ログアウトしました</p>
+    <div class="loginform_btn"><center><a href="{% url 'login' %}">ログイン画面へ</a></center></div>
+</body>
+
+<style>
+    body {
+        background-color: #c4e6b8;
+        color: #333333;
+    }
+
+    h1{
+        text-align: center;
+        padding-top: 50px;
+        padding-bottom: 30px;
+    }
+
+    .loginform_btn a{
+        width:150px;
+        height:25px;
+        text-align: center;
+        line-height:25px;
+        display:block;
+        /* width:10%;
+        height:10%; */
+        text-decoration: none;
+        background:#77b359;
+        text-align:center;
+        border:1px solid #FFFFFF;
+        color:#FFFFFF;
+        font-family: sans-serif;
+        font-size:17px;
+        border-radius:8px;
+        -webkit-border-radius:8px;
+        -moz-border-radius:8px;
+        box-shadow:0px 0px 0px 4px #659945 ;
+        transition: all 0.5s ease;
+    }
+    .loginform_btn a:hover{
+        background:#A8FF73;
+        color:#999999;
+        box-shadow:0px 0px 0px 4px #8cd460 ;
+    }
+
+
+</style>
+ 
+</html>
